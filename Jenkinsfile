@@ -1,4 +1,7 @@
-podTemplate(yaml: '''
+podTemplate(
+  name: 'test-pod',
+    label: 'test-pod',
+  yaml: '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -20,7 +23,7 @@ spec:
       - name: DOCKER_TLS_CERTDIR
         value: ""
 ''') {
-    node(POD_LABEL) {
+    node('test-pod') {
         git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
         container('docker') {
             sh 'docker version && DOCKER_BUILDKIT=1 docker build --progress plain -t testing .'
